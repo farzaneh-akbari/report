@@ -1,5 +1,6 @@
 package com.inter.report.service;
 
+import java.io.ByteArrayInputStream;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -19,5 +20,7 @@ public interface EmployeeService {
 	byte[] generateExcelReport() throws JRException;
 
 	CompletableFuture<String> generateReportAsync();
+
+	ByteArrayInputStream generateReport2() throws JRException;
 
 }

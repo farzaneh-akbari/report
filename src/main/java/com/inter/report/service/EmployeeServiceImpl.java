@@ -1,12 +1,15 @@
 package com.inter.report.service;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
@@ -14,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import com.inter.report.dto.Employee;
 import com.inter.report.dto.EmployeeDTO;
 import com.inter.report.dto.EmployeeDTOResponse;
 import com.inter.report.exception.NoEmployeesFoundException;
@@ -27,8 +31,10 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.HtmlExporter;
 import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
 import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleHtmlExporterOutput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import net.sf.jasperreports.export.SimpleXlsxReportConfiguration;
 
@@ -121,6 +127,32 @@ public class EmployeeServiceImpl implements EmployeeService{
 	            future.completeExceptionally(e);
 	            return future;
 	        }
+	}
+
+	@Override
+	public ByteArrayInputStream generateReport2() throws JRException {
+		  List<Employee> employees = new ArrayList<>();
+	        employees.add(new Employee("John Doe", "123 Main St", "555-1234"));
+	        employees.add(new Employee("Jane Smith", "456 Elm St", "555-5678"));
+	        employees.add(new Employee("Jane Smith", "456 Elm St", "555-5678"));
+	        employees.add(new Employee("Jane Smith", "456 Elm St", "555-5678"));
+	        employees.add(new Employee("Jane Smith", "456 Elm St", "555-5678"));
+	        employees.add(new Employee("Jane Smith", "456 Elm St", "555-5678"));
+	        employees.add(new Employee("tir", "456 Elm St", "555-5678"));
+	  
+	        
+	        JasperReport jasperReport = JasperCompileManager.compileReport(getClass().getResourceAsStream("/employee.jrxml"));
+	        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(employees);
+	        Map<String, Object> parameters = new HashMap<>();
+	        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+	        HtmlExporter exporter = new HtmlExporter();
+	        ByteArrayOutputStream out = new ByteArrayOutputStream();
+	        exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+	        exporter.setExporterOutput(new SimpleHtmlExporterOutput(out));
+	        exporter.exportReport();
+
+	        return new ByteArrayInputStream(out.toByteArray());
 	}
 
 

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.0.final using JasperReports Library version 6.21.0-4f56c4f36cd19e17675219a9ac4692d5f0f13b06  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="t" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a8e65786-485a-4601-b3b2-0402fd245196">
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="name" class="java.lang.String"/>
+	<field name="address" class="java.lang.String"/>
+	<field name="phone_number" class="java.lang.String"/>
+	<group name="EmployeeGroup">
+		<groupExpression><![CDATA[$F{name}]]></groupExpression>
+		<groupHeader>
+			<band height="30">
+				<textField>
+					<reportElement x="190" y="0" width="200" height="30" uuid="2a83114e-b93b-4de1-93bb-43bfd1b58e43"/>
+					<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="130" y="0" width="100" height="30" uuid="2a83114e-b93b-4de1-93bb-43bfd1b58e43">
+						<property name="net.sf.jasperreports.export.html.class" value="expand-collapse"/>
+						<property name="net.sf.jasperreports.export.html.onclick" value="toggleDetails(this)"/>
+					</reportElement>
+					<text><![CDATA[element]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="50">
+			<textField>
+				<reportElement x="0" y="0" width="555" height="50" uuid="f68ae8b6-70b8-4d7d-ac11-52a9aed0b10b"/>
+				<textElement markup="html"/>
+				<textFieldExpression><![CDATA["<script>function toggleDetails(element) {var details = document.querySelector('.detail-band'); if (details.style.display === 'none') {details.style.display = '';element.innerHTML = 'Collapse';} else {details.style.display = 'none';element.innerHTML = 'Expand';}}</script>"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="96" splitType="Stretch">
+			<staticText>
+				<reportElement x="69" y="50" width="100" height="30" uuid="309a2226-7397-4e5b-b512-6ee42c5febbd"/>
+				<text><![CDATA[phone_number]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="50" width="100" height="30" uuid="a9b51ef1-b448-4adf-aecc-a505a23eb75d"/>
+				<text><![CDATA[address]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="42" splitType="Stretch">
+			<property name="net.sf.jasperreports.export.html.class" value="detail-band"/>
+			<textField>
+				<reportElement x="85" y="9" width="100" height="30" uuid="1f092906-5fe9-4a38-a1f7-7aeded9b4429"/>
+				<textFieldExpression><![CDATA[$F{phone_number}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="390" y="12" width="100" height="30" uuid="2a2ee825-7b56-4b77-9267-34cbe251abea"/>
+				<textFieldExpression><![CDATA[$F{address}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
